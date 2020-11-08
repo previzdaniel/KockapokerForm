@@ -17,7 +17,7 @@ namespace KockapokerForm
         private Dobas ember;
         private PictureBox[] gepKep;
         private PictureBox[] emberKep;
-
+        public int dontetlen = 0;
         public frmFo()
         {
             InitializeComponent();
@@ -30,6 +30,9 @@ namespace KockapokerForm
             lblEmberReszeredmeny.Text = "";
             lblEmberEredmeny.Text = "0";
             lblGepEredmeny.Text = "0";
+            lbEredmeny.Text = "";
+            lblDontetlen.Text = "0";
+            lblMenetszam.Text = "0";
         }
 
         private void KepElhelyez(PictureBox pb, int szam)
@@ -66,6 +69,7 @@ namespace KockapokerForm
         {
             gep.EgyDobas();
             ember.EgyDobas();
+            
 
             DobasMegjelenit(gep, gepKep);
             DobasMegjelenit(ember, emberKep);
@@ -75,20 +79,32 @@ namespace KockapokerForm
 
             if (gep.Pont > ember.Pont)
             {
-                MessageBox.Show("Gép nyert", "Játszott kör", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                lbEredmeny.Text = "Gép nyert";
                 gep.nyert++;
                 lblGepEredmeny.Text = gep.nyert.ToString();
             }
             else if (gep.Pont < ember.Pont)
             {
-                MessageBox.Show("Játékos nyert", "Játszott kör", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                lbEredmeny.Text = "Játékos nyert";
                 ember.nyert++;
                 lblEmberEredmeny.Text = ember.nyert.ToString();
             }
             else
             {
-                MessageBox.Show("Döntetlen", "Játszott kör", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                dontetlen++;
+                lbEredmeny.Text = "Döntetlen";
+                lblDontetlen.Text = $"{dontetlen}";
             }
+            lblMenetszam.Text = $"{dontetlen + ember.nyert + gep.nyert}";
+            if (lblGepEredmeny.Text == "999" || lblEmberEredmeny.Text == "999")
+            {
+                MessageBox.Show("A szerencsejáték függőséget okoz", "Figyelmeztetés", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void btnKilepes_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

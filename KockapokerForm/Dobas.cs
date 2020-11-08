@@ -27,10 +27,13 @@ namespace KockapokerForm
 
         public int nyert { get; set; }
 
+        public int Menet { get; set; }
+
 
         public Dobas()
         {
             nyert = 0;
+            Menet = 0;
         }
 
         public Dobas(int k1, int k2, int k3, int k4, int k5)
